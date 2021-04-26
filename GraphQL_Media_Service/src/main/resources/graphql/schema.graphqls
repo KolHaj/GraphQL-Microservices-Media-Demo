@@ -1,0 +1,96 @@
+type Media {
+    id: ID!
+    type: String
+    region: String
+    release: Int
+    sales: Int
+}
+
+type Book {
+    id: ID!
+    name: String
+    author: String
+    available: Boolean
+    media: String
+}
+
+type Movie {
+    id: ID!
+    name: String
+    writers: String
+    available: Boolean
+    media: String
+}
+
+type Television {
+    id: ID!
+    name: String
+    writers: String
+    available: Boolean
+    media: String
+}
+
+type Sequential {
+    media: Media
+    book: Book
+    television: Television
+    movie: Movie
+}
+
+type Query{
+    allMedia: [Media]
+    allMovies: [Movie]
+    allBooks: [Book]
+    allTelevision: [Television]
+    allSequential (id: ID!): [Sequential]
+}
+
+input MediaInput {
+    id: String
+    type: String
+    region: String
+    release: Int
+    sales: Int
+}
+
+input MovieInput {
+    name: String
+    writers: String
+    available: Boolean
+    media: String
+}
+
+input BookInput {
+    name: String
+    author: String
+    available: Boolean
+    media: String
+}
+
+input TelevisionInput {
+    name: String
+    writers: String
+    available: Boolean
+    media: String
+}
+
+input SequentialInput {
+    media: MediaInput
+    book: BookInput
+    television: TelevisionInput
+    movie: MovieInput
+}
+
+type Mutation{
+    addMedia(Media: MediaInput): Media
+    updateMedia(Media: MediaInput): Media
+    addMovie(Movie: MovieInput, mediaId: ID!): Movie
+    addTelevision(Television: TelevisionInput, mediaId: ID!): Television
+    addBook(Book: BookInput, mediaId: ID!): Book
+    getMediaById(id: ID!): Media
+}
+
+schema {
+    query : Query
+    mutation: Mutation
+}
